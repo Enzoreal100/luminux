@@ -11,16 +11,43 @@ const HeroSection = styled.section`
   padding: 2rem;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://picsum.photos/2000/3000") center/cover fixed no-repeat;
-`;
 
+  @media (max-width: 768px) {
+    height: 40vh;
+  }
+
+  @media (max-width: 480px) {
+    height: 30vh;
+    margin-top: 2rem;
+  }
+`;
 const HeroTitle = styled.h1`
   color: white;
   font-size: 64px;
-`;
+  font-weight: 400;
 
+  @media (max-width: 768px) {
+    font-size: 48px;
+    
+  }
+
+  @media (max-width: 480px) {
+    font-size: 32px;
+    margin-bottom: 1rem;
+  }
+`;
 const HeroText = styled.p`
   color: white;
   font-size: 24px;
+  font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
 `;
 
 const Section = styled.section`

@@ -1,17 +1,19 @@
 import styled, { createGlobalStyle } from 'styled-components'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from './pages/home.jsx'
+import About from './pages/about.jsx' 
+import Portfolio from './pages/portfolio.jsx' 
+import Footer from './components/Footer.jsx' 
 
 const GlobalStyle = createGlobalStyle`
   body {
-    font-family: 'Ubuntu', sans-serif;
+    font-family: ${props => props.theme.fonts.body};
     font-weight: 700;
   }
 `
 
 const AppContainer = styled.div`
   background: ${props => props.theme.colors.background};
-  min-height: 100vh;
   width: 100vw;
   overflow-x: hidden;
   margin-left: -0.5rem;
@@ -24,14 +26,18 @@ function App() {
   return (
     <Router>
       <AppContainer>
-        <GlobalStyle/>
-        <Header/>
+        <GlobalStyle />
+        <Header />
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/portfolio" element={<Portfolio />} />
         </Routes>
+        <Footer />
       </AppContainer>
     </Router>
   )
 }
+
 export default App
 

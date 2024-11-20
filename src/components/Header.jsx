@@ -1,5 +1,7 @@
+/*************  ✨ Codeium Command 🌟  *************/
 import styled, { createGlobalStyle } from "styled-components";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
@@ -39,10 +41,11 @@ const Image = styled.img`
 const Nav = styled.nav`
     display: flex;
     gap: 10px;
-    
+
 `;
 
-const Button = styled.button`
+const Button = styled(Link)`
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,6 +55,11 @@ const Button = styled.button`
     font-size: 16px;
     font-family: ${props => props.theme.fonts.body};
     cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+        transform: scale(1.1);
+    }
 `;
 const ContactUsButton = styled(Button)`
     font-weight: bold;
@@ -64,17 +72,21 @@ const ContactUsButton = styled(Button)`
     color: ${props => props.theme.colors.background};
     border-radius: 10px;
     padding: 10px;
-    transition: background 0.3s ease-in-out;
+    transition: 
+        background 0.3s ease-in-out,
+        transform 0.3s ease-in-out;
 
     &:hover {
         background: linear-gradient(
             90deg,
             ${props => props.theme.colors.secondary} 0%,
-            ${props => props.theme.colors.primary} 50%,
+            ${props => props.theme.colors.primary} 40%,
             ${props => props.theme.colors.secondary} 100%
         );
-        transition:
-            background 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        transform: scale(1.1);
+        transition: 
+            background 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+            transform 0.3s ease-in-out;
     }
 `;
 
@@ -98,9 +110,9 @@ function Header() {
             <Image src="https://via.placeholder.com/150" alt="placeholder image" />
             <GlobalStyle/>
             <Nav>
-                <Button>Home</Button>
-                <Button>About</Button>
-                <Button>Portfolio</Button>
+                <Button to="/">Home</Button>
+                <Button to="/about">About</Button>
+                <Button to='/portfolio'>Portfolio</Button>
             </Nav>
             <ContactUsButton>Contact Us</ContactUsButton>
         </HeaderContainer>
@@ -109,3 +121,5 @@ function Header() {
 
 export default Header;
 
+
+/******  6437cbed-6074-4e62-afd6-3e0ac9d926f6  *******/

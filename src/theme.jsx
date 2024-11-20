@@ -3,10 +3,11 @@ const theme = {
         primary: '#f2c600',
         secondary: '#C8A300',
         background: '#33312b',
-        text: '#a68700'
+        text: '#a68700',
+        dark_text: '#33312b',
     },
     fonts:{
-        body: "'Ubuntu', sans-serif"
+        body: "'Montserrat', sans-serif"
     }
 }
 
