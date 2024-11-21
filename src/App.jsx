@@ -20,6 +20,11 @@ const AppContainer = styled.div`
   margin-bottom: -0.5rem;
 `
 
+const PageContainer = styled.div`
+  width: 100%;
+  min-height: 100vh;
+`
+
 import Header from './components/Header.jsx'
 
 function App() {

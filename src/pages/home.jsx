@@ -1,4 +1,6 @@
+import React, { useEffect, useRef } from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { gsap } from "gsap";
 import theme from "../theme.jsx";
 import Header from "../components/Header.jsx";
 
@@ -7,39 +9,50 @@ const HeroSection = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50vh;
-  padding: 2rem;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://picsum.photos/2000/3000") center/cover fixed no-repeat;
+  height: 33vh;
+  padding: 4rem 0 0 0;
+  background: ${(props) => props.theme.colors.background};
+  overflow: hidden;
 
   @media (max-width: 768px) {
-    height: 40vh;
+    height: 35vh;
   }
 
   @media (max-width: 480px) {
-    height: 30vh;
-    margin-top: 2rem;
+    height: 15vh;
   }
 `;
+
+const HeroContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
 const HeroTitle = styled.h1`
-  color: white;
+  color: ${(props) => props.theme.colors.primary};
   font-size: 64px;
   font-weight: 400;
+  position: relative;
+  text-align: center;
+  opacity: 0;
 
   @media (max-width: 768px) {
     font-size: 48px;
-    
   }
 
   @media (max-width: 480px) {
     font-size: 32px;
-    margin-bottom: 1rem;
   }
 `;
+
 const HeroText = styled.p`
-  color: white;
+  color: ${(props) => props.theme.colors.primary};
   font-size: 24px;
   font-weight: 400;
+  margin-top: 1rem;
+  text-align: center;
+  opacity: 0;
 
   @media (max-width: 768px) {
     font-size: 18px;
@@ -50,11 +63,27 @@ const HeroText = styled.p`
   }
 `;
 
+const RandomLine = styled.div`
+  position: absolute;
+  width: 1rem;
+  height: 100%;
+  background: ${(props) => props.theme.colors.primary};
+  opacity: 0;
+
+  @media (max-width: 768px) {
+    width: 3px;
+  }
+
+  @media (max-width: 480px) {
+    width: 2px;
+  }
+`;
+
 const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 0 2rem 2rem 2rem;
 `;
 
 const SectionTitle = styled.h2`
@@ -71,18 +100,71 @@ const SectionText = styled.p`
   padding: 0.5rem;
 `;
 
+const Hero = () => {
+  const titleRef = useRef(null);
+  const textRef = useRef(null);
+  const linesRef = useRef([]);
+
+  useEffect(() => {
+    const tl = gsap.timeline();
+
+    // Linhas descendo todas de uma vez
+    tl.set(linesRef.current, { opacity: 1, y: -200 })
+      .to(linesRef.current, {
+        y: "35vh",
+        duration: 1,
+        ease: "power4.out",
+        stagger: 0, // Sem atraso entre as animações
+      })
+      .set(linesRef.current, { opacity: 0 });
+
+    // Aparecimento do título e subtítulo
+    tl.to(
+      titleRef.current,
+      { opacity: 1, y: 0, duration: 1, ease: "power4.out" },
+      "-=0.2"
+    )
+      .to(
+        textRef.current,
+        { opacity: 1, y: 0, duration: 0.8, ease: "power4.out" },
+        "-=0.3"
+      );
+  }, []);
+
+  // Gerar linhas que cubram a largura inteira da tela
+  const generateFullWidthLines = (spacing) => {
+    const lineCount = Math.ceil(window.innerWidth / spacing); // Calcular o número de linhas com base no espaçamento
+    return Array.from({ length: lineCount }, (_, index) => (
+      <RandomLine
+        key={`line-${index}`}
+        style={{
+          left: `${index * spacing}px`, // Posicionamento uniforme
+        }}
+      />
+    ));
+  };
+
+  return (
+    <HeroSection>
+      <HeroContainer>
+        {generateFullWidthLines(50).map((line, index) =>
+          React.cloneElement(line, { ref: (el) => (linesRef.current[index] = el) })
+        )}
+        <HeroTitle ref={titleRef}>Welcome to LuminUX</HeroTitle>
+        <HeroText ref={textRef}>Let the concepts become real</HeroText>
+      </HeroContainer>
+    </HeroSection>
+  );
+};
+
+
+
+
 function Home() {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <HeroSection>
-        <HeroTitle>Welcome to LuminUX</HeroTitle>
-        <HeroText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
-          nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
-          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-        </HeroText>
-      </HeroSection>
+      <Hero />
       <Section>
         <SectionTitle>What is LuminUX?</SectionTitle>
         <SectionText>
