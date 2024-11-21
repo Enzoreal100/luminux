@@ -4,6 +4,9 @@ import { gsap } from "gsap";
 import theme from "../theme.jsx";
 import Header from "../components/Header.jsx";
 
+const HomeContainer = styled.div`
+  min-height: 100vh;
+`
 const HeroSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -83,7 +86,7 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 2rem 2rem 2rem;
+  padding: 0 6rem 2rem 6rem;
 `;
 
 const SectionTitle = styled.h2`
@@ -163,11 +166,21 @@ const Hero = () => {
 function Home() {
   return (
     <ThemeProvider theme={theme}>
+      <HomeContainer>
       <Header />
       <Hero />
       <Section>
         <SectionTitle>What is LuminUX?</SectionTitle>
         <SectionText>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
+          nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
+          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
+          nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
+          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
+          nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
+          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
           nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
           penatibus et magnis dis parturient montes, nascetur ridiculus mus.
@@ -179,8 +192,18 @@ function Home() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
           nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
           penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
+          nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
+          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
+          nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
+          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
+          nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
+          penatibus et magnis dis parturient montes, nascetur ridiculus mus.
         </SectionText>
       </Section>
+      </HomeContainer>
     </ThemeProvider>
   );
 }
