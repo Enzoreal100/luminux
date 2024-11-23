@@ -21,18 +21,20 @@ const HeaderContainer = styled.header`
         background 0.3s ease-in-out,
         height 0.3s ease-in-out;
     z-index: 1000;
+    &.scrolled {
+        height: 4.5rem;
+        background: ${props => props.theme.colors.secondary};
+        }
+    
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
 
     @media (max-width: 768px) {
-        height: 4rem;
-    &.scrolled {
-        height: 4.5rem;
-        background: ${props => props.theme.colors.secondary};
+        height: 5rem;
     }
-`;
+`;  
 
 const Image = styled.img`
     height: 80%;
@@ -108,7 +110,7 @@ function Header() {
 
     return (
         <HeaderContainer className={scrolled ? 'scrolled' : ''}>
-            <Image src="./src/assets/luminux_logo.png" alt="LuminUX Logo" />
+            <Image src="https://res.cloudinary.com/dpcqjs6uc/image/upload/v1732389109/jeu6xpm8mqg9zissf5i7.png" alt="LuminUX Logo" />
             <GlobalStyle/>
             <Nav>
                 <Button to="/">Home</Button>
