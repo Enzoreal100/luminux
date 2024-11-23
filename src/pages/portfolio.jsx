@@ -9,7 +9,7 @@ const PortfolioContainer = styled.section`
   width: 100%;
   margin: 0 auto;
   padding: 2rem 0;
-  min-height: 84.1vh;
+  min-height: 100vh;
 `;
 
 const Card = styled.a`

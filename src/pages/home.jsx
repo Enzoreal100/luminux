@@ -1,35 +1,36 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { gsap } from "gsap";
 import theme from "../theme.jsx";
-import Header from "../components/Header.jsx";
+import logoImage from "../assets/luminux_logo.png";
+
 
 const HomeContainer = styled.div`
-  min-height: 100vh;
+  min-height: 100%;
 `
 const HeroSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 33vh;
-  padding: 4rem 0 0 0;
+  height: 100vh;
   background: ${(props) => props.theme.colors.background};
   overflow: hidden;
+  position: relative;
 
   @media (max-width: 768px) {
     height: 35vh;
   }
 
   @media (max-width: 480px) {
-    height: 15vh;
+    height: 100vh;
   }
 `;
 
-const HeroContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
+const Logo = styled.img`
+  width: 50%;
+  opacity: 0;
+  margin: 8rem 0 0 0;
 `;
 
 const HeroTitle = styled.h1`
@@ -41,11 +42,11 @@ const HeroTitle = styled.h1`
   opacity: 0;
 
   @media (max-width: 768px) {
-    font-size: 48px;
+    font-size: 60px;
   }
 
   @media (max-width: 480px) {
-    font-size: 32px;
+    font-size: 44px;
   }
 `;
 
@@ -56,6 +57,7 @@ const HeroText = styled.p`
   margin-top: 1rem;
   text-align: center;
   opacity: 0;
+  transform: translateY(20px);
 
   @media (max-width: 768px) {
     font-size: 18px;
@@ -66,19 +68,24 @@ const HeroText = styled.p`
   }
 `;
 
-const RandomLine = styled.div`
-  position: absolute;
-  width: 1rem;
-  height: 100%;
-  background: ${(props) => props.theme.colors.primary};
+const ArrowDown = styled.div`
+  width: 24px;
+  height: 24px;
+  border: solid ${(props) => props.theme.colors.primary};
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  margin-top: 2rem;
   opacity: 0;
+  transform: translateY(20px) rotate(45deg);
 
   @media (max-width: 768px) {
-    width: 3px;
+    width: 18px;
+    height: 18px;
   }
 
   @media (max-width: 480px) {
-    width: 2px;
+    width: 12px;
+    height: 12px;
   }
 `;
 
@@ -86,89 +93,118 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 6rem 2rem 6rem;
+  padding: 6rem;
 `;
 
 const SectionTitle = styled.h2`
   color: ${props => props.theme.colors.text};
-  font-size: 32px;
+  font-size: 60px;
   font-weight: 400;
   padding: 0.5rem;
 `;
 
 const SectionText = styled.p`
   color: ${props => props.theme.colors.text};
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
   padding: 0.5rem;
 `;
 
-const Hero = () => {
+const Hero = ({onAnimationComplete}) => {
+  const logoRef = useRef(null);
   const titleRef = useRef(null);
   const textRef = useRef(null);
-  const linesRef = useRef([]);
+  const arrowRef = useRef(null);
 
   useEffect(() => {
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({
+      onComplete:onAnimationComplete,
+    });
 
-    // Linhas descendo todas de uma vez
-    tl.set(linesRef.current, { opacity: 1, y: -200 })
-      .to(linesRef.current, {
-        y: "35vh",
-        duration: 1,
-        ease: "power4.out",
-        stagger: 0, // Sem atraso entre as animações
-      })
-      .set(linesRef.current, { opacity: 0 });
-
-    // Aparecimento do título e subtítulo
-    tl.to(
-      titleRef.current,
-      { opacity: 1, y: 0, duration: 1, ease: "power4.out" },
-      "-=0.2"
-    )
+    
+    tl.to(logoRef.current, {
+      opacity: 1,
+      scale: 1,
+      duration: 1.5,
+      ease: "power4.out",
+    })
+      
       .to(
-        textRef.current,
-        { opacity: 1, y: 0, duration: 0.8, ease: "power4.out" },
-        "-=0.3"
-      );
-  }, []);
+        logoRef.current,
+        {
+          scale: 0.8,
+          opacity: 0,
+          duration: 1,
+          ease: "power4.inOut",
+          onComplete: () => {
+            logoRef.current.style.display = "none";
+          },
+        },
+        "+=0.5"
+      )
+      
+      .to(
+        titleRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power4.out",
+        },
+        "-=0.5"
+      )
+      
+      .to(textRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power4.out",
+      })
+      
+      .to(
+        arrowRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power4.out",
+        })
 
-  // Gerar linhas que cubram a largura inteira da tela
-  const generateFullWidthLines = (spacing) => {
-    const lineCount = Math.ceil(window.innerWidth / spacing); // Calcular o número de linhas com base no espaçamento
-    return Array.from({ length: lineCount }, (_, index) => (
-      <RandomLine
-        key={`line-${index}`}
-        style={{
-          left: `${index * spacing}px`, // Posicionamento uniforme
-        }}
-      />
-    ));
-  };
+        .call(() => {
+          gsap.to(arrowRef.current, { 
+            y: 10, 
+            repeat: -1, 
+            yoyo: true, 
+            duration: 1, 
+            ease: "power2.inOut" });
+          }, 
+          {
+        })
+  }, [onAnimationComplete]);
 
   return (
     <HeroSection>
-      <HeroContainer>
-        {generateFullWidthLines(50).map((line, index) =>
-          React.cloneElement(line, { ref: (el) => (linesRef.current[index] = el) })
-        )}
-        <HeroTitle ref={titleRef}>Welcome to LuminUX</HeroTitle>
-        <HeroText ref={textRef}>Let the concepts become real</HeroText>
-      </HeroContainer>
+      <Logo ref={logoRef} src={logoImage} alt="LuminUX Logo" />
+      <HeroTitle ref={titleRef}>Welcome to LuminUX</HeroTitle>
+      <HeroText ref={textRef}>Let the concepts become real</HeroText>
+      <ArrowDown ref={arrowRef} />
     </HeroSection>
   );
 };
 
 
-
-
 function Home() {
+  const [animationComplete, setAnimationComplete] = useState(false);
+
+  const handleAnimationComplete = () => {
+    setAnimationComplete(true);
+  };
   return (
     <ThemeProvider theme={theme}>
       <HomeContainer>
-      <Header />
-      <Hero />
+      <Hero onAnimationComplete={handleAnimationComplete} />
+      {animationComplete && (
+        <>
       <Section>
         <SectionTitle>What is LuminUX?</SectionTitle>
         <SectionText>
@@ -203,6 +239,8 @@ function Home() {
           penatibus et magnis dis parturient montes, nascetur ridiculus mus.
         </SectionText>
       </Section>
+      </>
+    )}
       </HomeContainer>
     </ThemeProvider>
   );

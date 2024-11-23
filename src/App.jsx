@@ -6,18 +6,30 @@ import Portfolio from './pages/portfolio.jsx'
 import Footer from './components/Footer.jsx' 
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth !important;
+  }
+
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    
+  }
+
   body {
     font-family: ${props => props.theme.fonts.body};
     font-weight: 700;
   }
+
 `
 
 const AppContainer = styled.div`
   background: ${props => props.theme.colors.background};
-  width: 100vw;
   overflow-x: hidden;
-  margin-left: -0.5rem;
-  margin-bottom: -0.5rem;
 `
 
 const PageContainer = styled.div`
@@ -29,8 +41,8 @@ import Header from './components/Header.jsx'
 
 function App() {
   return (
-    <Router>
-      <AppContainer>
+    <AppContainer>
+      <Router>
         <GlobalStyle />
         <Header />
         <Routes>
@@ -39,8 +51,8 @@ function App() {
           <Route path="/portfolio" element={<Portfolio />} />
         </Routes>
         <Footer />
-      </AppContainer>
-    </Router>
+      </Router>
+    </AppContainer>
   )
 }
 

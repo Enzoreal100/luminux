@@ -1,10 +1,9 @@
-/*************  ✨ Codeium Command 🌟  *************/
 import styled, { createGlobalStyle } from "styled-components";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+    
 `;
 
 const HeaderContainer = styled.header`
@@ -27,6 +26,8 @@ const HeaderContainer = styled.header`
         transition: none;
     }
 
+    @media (max-width: 768px) {
+        height: 4rem;
     &.scrolled {
         height: 4.5rem;
         background: ${props => props.theme.colors.secondary};
@@ -35,13 +36,12 @@ const HeaderContainer = styled.header`
 
 const Image = styled.img`
     height: 80%;
-    margin-left: 10px;
 `;
 
 const Nav = styled.nav`
     display: flex;
     gap: 10px;
-
+    margin-left: 75px;
 `;
 
 const Button = styled(Link)`
@@ -61,9 +61,10 @@ const Button = styled(Link)`
         transform: scale(1.1);
     }
 `;
+
 const ContactUsButton = styled(Button)`
+margin-right: 10px;
     font-weight: bold;
-    margin-right: 10px;
     background: linear-gradient(
         90deg,
         ${props => props.theme.colors.primary} 0%,
@@ -107,7 +108,7 @@ function Header() {
 
     return (
         <HeaderContainer className={scrolled ? 'scrolled' : ''}>
-            <Image src="https://via.placeholder.com/150" alt="placeholder image" />
+            <Image src="./src/assets/luminux_logo.png" alt="LuminUX Logo" />
             <GlobalStyle/>
             <Nav>
                 <Button to="/">Home</Button>
@@ -122,4 +123,3 @@ function Header() {
 export default Header;
 
 
-/******  6437cbed-6074-4e62-afd6-3e0ac9d926f6  *******/
