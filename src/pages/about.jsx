@@ -5,6 +5,7 @@ import Title from "../components/Title.jsx";
 import Section from "../components/Section.jsx";
 import Card from "../components/Card.jsx";
 import TextDark from "../components/TextDark.jsx";
+import { useTranslation } from "react-i18next";
 
 const GlobalStyle = createGlobalStyle`
   @media (max-width: 768px) {
@@ -64,10 +65,11 @@ const Image = styled.img`
 `;
 
 function About() {
+  const { t } = useTranslation();
   return (
     <AboutContainer>
       <GlobalStyle />
-      <Title>About Us</Title>
+      <Title>{t("about")}</Title>
       <Section>
         <Image src="https://placehold.co/300x200" />
         <TextContainer>

@@ -1,6 +1,8 @@
 import styled, { createGlobalStyle } from "styled-components";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 
 const GlobalStyle = createGlobalStyle`
     
@@ -95,6 +97,7 @@ margin-right: 10px;
 
 function Header() {
     const [scrolled, setScrolled] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -114,10 +117,10 @@ function Header() {
             <GlobalStyle/>
             <Nav>
                 <Button to="/">Home</Button>
-                <Button to="/about">About</Button>
-                <Button to='/portfolio'>Portfolio</Button>
+                <Button to="/about">{t('aboutBtn')}</Button>
+                <Button to='/portfolio'>{t('portfolioBtn')}</Button>
             </Nav>
-            <ContactUsButton>Contact Us</ContactUsButton>
+            <ContactUsButton to='https://wa.me/5511961792040?text=Tenho%20interesse%20em%20comprar%20seu%20carro' target="_blank" rel="noopener noreferrer" >{t('contactBtn')}</ContactUsButton>
         </HeaderContainer>
     );
 }

@@ -4,6 +4,7 @@ import Home from './pages/home.jsx'
 import About from './pages/about.jsx' 
 import Portfolio from './pages/portfolio.jsx' 
 import Footer from './components/Footer.jsx' 
+import './i18n.jsx'
 
 const GlobalStyle = createGlobalStyle`
   * {

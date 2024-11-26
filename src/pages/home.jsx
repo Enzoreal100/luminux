@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { gsap } from "gsap";
 import theme from "../theme.jsx";
-import logoImage from "../assets/luminux_logo.png";
+import logoImage from "../assets/logo.png";
+import { useTranslation } from "react-i18next";
 
 
 const HomeContainer = styled.div`
@@ -110,11 +111,13 @@ const SectionText = styled.p`
   padding: 0.5rem;
 `;
 
+
 const Hero = ({onAnimationComplete}) => {
   const logoRef = useRef(null);
   const titleRef = useRef(null);
   const textRef = useRef(null);
   const arrowRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -176,17 +179,16 @@ const Hero = ({onAnimationComplete}) => {
             repeat: -1, 
             yoyo: true, 
             duration: 1, 
-            ease: "power2.inOut" });
-          }, 
-          {
-        })
+            ease: "power2.inOut" 
+          });
+        });
   }, [onAnimationComplete]);
 
   return (
     <HeroSection>
       <Logo ref={logoRef} src={logoImage} alt="LuminUX Logo" />
-      <HeroTitle ref={titleRef}>Welcome to LuminUX</HeroTitle>
-      <HeroText ref={textRef}>Let the concepts become real</HeroText>
+      <HeroTitle ref={titleRef}>{t('title')}</HeroTitle>
+      <HeroText ref={textRef}>{t('text')}</HeroText>
       <ArrowDown ref={arrowRef} />
     </HeroSection>
   );
@@ -195,6 +197,7 @@ const Hero = ({onAnimationComplete}) => {
 
 function Home() {
   const [animationComplete, setAnimationComplete] = useState(false);
+  const { t } = useTranslation();
 
   const handleAnimationComplete = () => {
     setAnimationComplete(true);
@@ -206,7 +209,7 @@ function Home() {
       {animationComplete && (
         <>
       <Section>
-        <SectionTitle>What is LuminUX?</SectionTitle>
+        <SectionTitle>{t('what')}</SectionTitle>
         <SectionText>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
           nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
@@ -223,7 +226,7 @@ function Home() {
         </SectionText>
       </Section>
       <Section>
-        <SectionTitle>How does it work?</SectionTitle>
+        <SectionTitle>{t('how')}</SectionTitle>
         <SectionText>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
           nulla auctor, vestibulum magna sed, convallis ex. Cum sociis natoque
